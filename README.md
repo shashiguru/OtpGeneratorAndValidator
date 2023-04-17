@@ -12,7 +12,7 @@
     d. Give name to create migration file.
     e. Update the migrations with database by typing command of `update-database` to create database and tables.
 
-  ## Run your application
+  ## Run and Test the application
     a. Upon running the application, it will open in swagger.
     b. two endpoints created.
 
@@ -56,6 +56,30 @@
 ## Create an instance of MSSQL
 1. Open command prompt and type `sqllocaldb create localserver` to create a server.
 2. Connect MSSQL with window authentication and use server name as `(localdb)\localserver`.
+
+## Assumptions:
+  ### Generate:
+    1. Entered email id should be valid email address.
+    2. Email address should be ends with domain name of `dso.org.sg`.
+    3. Email Id will be validated against the database, if email present in db then checks the generated date and time 
+      a. if generated datetime is more than 1 minute then it will ask user to try after 1 minute.
+      b. If generated datetime is less than 1 minute then it will generate the new OTP.
+    4. If Email Id not present in db then it will create a record under db with OTP and return OTP to user.
+
+  ### Validate:
+    1. Entered email address should be present in database.
+    2. If present in database then it will checks
+      a. If generated datetime is less than 1 minute then it will check the entered Otp, 
+          if otp is correct then it will return as 
+            `Successfully validated`
+          If otp is not correct then it will increase tryCount to 1 and return as
+            `Otp invalid`.
+      b. If generated datetime is more than 1 minute then it will return as
+            `Timeout for entered Otp`
+    3. If not present in database then it will return error as
+            `Email not found`
+  
+## Test Results:
 
 ## Run unit test:
 1. Build your application and run all the test cases
