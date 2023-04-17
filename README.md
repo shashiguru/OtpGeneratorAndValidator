@@ -80,7 +80,6 @@
             `Email not found`
   
 ## Test Results:
-![image](https://user-images.githubusercontent.com/30490543/232522425-cb075238-88af-433a-8f77-a152219224a3.png)
 
 
 ## Run unit test:
