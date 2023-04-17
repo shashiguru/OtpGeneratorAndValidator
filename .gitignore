@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Email.OTP/.vs/Email.OTP
+/Email.OTP/Email.OTP.Application/obj
+/Email.OTP/Email.OTP.Domain/bin/Debug/net6.0
+/Email.OTP/Email.OTP.Domain/obj
+/Email.OTP/Email.OTP.Infrastructure/bin/Debug/net6.0
+/Email.OTP/Email.OTP.Infrastructure/obj
+/Email.OTP/Email.OTP.UnitTest/bin/Debug/net6.0
+/Email.OTP/Email.OTP.UnitTest/obj
+/Email.OTP/Email.OTP.WebAPI/bin/Debug/net6.0
+/Email.OTP/Email.OTP.WebAPI/obj
+/Email.OTP/Email.OTP.Application/bin/Debug/net6.0
+/Email.OTP/.vs/ProjectEvaluation
+/Email.OTP/Email.OTP.WebAPI/Email.OTP.WebAPI.csproj.user
