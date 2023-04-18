@@ -80,6 +80,31 @@
             `Email not found`
   
 ## Test Results:
+  ### Generate:
+  1. When user enters the invalid email address.
+     ![image](https://user-images.githubusercontent.com/30490543/232784786-7c076cd4-7fe3-47c0-9d6a-6ee26cc5f624.png)
+  
+  2. When user enters the valid email address.
+     ![image](https://user-images.githubusercontent.com/30490543/232784558-c2877a86-7746-4260-88c5-3d9e62a024d8.png)
+     
+  3. When user tries to generate the OTP with in minute
+     ![image](https://user-images.githubusercontent.com/30490543/232785121-7e7df67f-e040-47a0-b1d9-18034963c56b.png)
+     
+  ### Validate:
+  1. When user eneters invalid OTP.
+    ![image](https://user-images.githubusercontent.com/30490543/232785826-d1b5b362-46df-41d6-afb7-3095c9adddb4.png)
+   
+  2. When user enters invalid email address.
+    ![image](https://user-images.githubusercontent.com/30490543/232791549-cbb80eba-c9df-4075-ad1a-c5dfb536b861.png)
+
+  3. When entered email address not present in db.
+    ![image](https://user-images.githubusercontent.com/30490543/232791802-a73c4858-bea9-4228-acf9-af63075734c3.png)
+   
+  4. When enetered OTP timedout(tried after 1 min).
+    ![image](https://user-images.githubusercontent.com/30490543/232790925-96f16d20-fd3a-40d4-a2a0-640378fbc523.png)
+    
+  5. When OTP validated successfully.
+    ![image](https://user-images.githubusercontent.com/30490543/232788471-da97a19c-8d75-4ab2-8925-f16b59459e3c.png)
 
 ## Run unit test:
 1. Build your application and run all the test cases
