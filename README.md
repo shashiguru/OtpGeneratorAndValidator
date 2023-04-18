@@ -1,6 +1,16 @@
 # OTP Generator And Validator Assesment
   This application is used to generate the Otp and validate the Otp.
 
+  ## Architecture and tech stack
+    1. This application is implemented with Microservice architecture and repository pattern
+       with below technologies.
+      a. .Net Core 6.0
+      b. Entity Framework 7.0.4
+      c. FluentValidation 11.5.1
+      d. xunit 2.4.2
+      e. FakeItEasy 7.3.1
+    2. Integration of swagger for API documentation and testing the end points.
+
   ## Setup and Run
     1. Clone repository from given source control url(GitHub).
     2. After cloning, build your application.
