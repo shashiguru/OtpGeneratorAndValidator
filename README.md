@@ -95,10 +95,10 @@
     ![image](https://user-images.githubusercontent.com/30490543/232785826-d1b5b362-46df-41d6-afb7-3095c9adddb4.png)
    
   2. When user enters invalid email address.
-    ![image](https://user-images.githubusercontent.com/30490543/232787229-e3541aef-8cab-4bec-9ecb-cdf53e109ee3.png)
+    ![image](https://user-images.githubusercontent.com/30490543/232791549-cbb80eba-c9df-4075-ad1a-c5dfb536b861.png)
 
   3. When entered email address not present in db.
-    ![image](https://user-images.githubusercontent.com/30490543/232787518-dbebe7b9-579c-4fb4-acb0-c84e2ce4d97b.png)
+    ![image](https://user-images.githubusercontent.com/30490543/232791802-a73c4858-bea9-4228-acf9-af63075734c3.png)
    
   4. When enetered OTP timedout(tried after 1 min).
     ![image](https://user-images.githubusercontent.com/30490543/232790925-96f16d20-fd3a-40d4-a2a0-640378fbc523.png)
