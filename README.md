@@ -109,3 +109,9 @@
 ## Run unit test:
 1. Build your application and run all the test cases
 
+## Postman collection:
+1. You can find the postman collection in below url.
+  `https://github.com/shashiguru/OtpGeneratorAndValidator/tree/main/Email.OTP/Email.OTP.Postman`
+
+2. Import the file in postman and test the application while running.
+
