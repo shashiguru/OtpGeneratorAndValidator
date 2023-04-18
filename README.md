@@ -80,7 +80,8 @@
             `Email not found`
   
 ## Test Results:
-
+  1. When user enters the invalid email address.
+    ![image](https://user-images.githubusercontent.com/30490543/232783783-c3a896a3-072f-4ed5-b8bb-abb17bbba59a.png)
 
 ## Run unit test:
 1. Build your application and run all the test cases
