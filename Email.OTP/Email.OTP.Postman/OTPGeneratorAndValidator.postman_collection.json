@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "e46a862e-c5a8-4dbc-acb3-6a9172c00d5c",
+		"name": "OTPGeneratorAndValidator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13772402"
+	},
+	"item": [
+		{
+			"name": "Generate",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "d75ecaa85e8f4b97a7e25854ed08c795",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IlNzWnNCTmhaY0YzUTlTNHRycFFCVEJ5TlJSSSIsImtpZCI6IlNzWnNCTmhaY0YzUTlTNHRycFFCVEJ5TlJSSSJ9.eyJhdWQiOiJhcGk6Ly9jNTAwNjhlZi00OGEyLTQ2NWEtODlkYy03NDAxNzc1NWE2ODYiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85YWVjY2MzOS0wMDk4LTRhN2ItYTQ3ZC1mNDBlMTE2ZTBiOGIvIiwiaWF0IjoxNTkzNjgyNzU5LCJuYmYiOjE1OTM2ODI3NTksImV4cCI6MTU5MzY4NjY1OSwiYWlvIjoiRTJCZ1lGQk1rNmhYWCtIMnJZa241dnVrcTJFQkFBPT0iLCJhcHBpZCI6IjdiNTBiMjU1LWQ4YjctNGFiNS1iMjU3LTM5MWZlMWEwOTQxNCIsImFwcGlkYWNyIjoiMSIsImlkcCI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzlhZWNjYzM5LTAwOTgtNGE3Yi1hNDdkLWY0MGUxMTZlMGI4Yi8iLCJvaWQiOiIyZWVjM2NhMC04MzcwLTQ1ODYtOWY0MC00MWRkNzZjYzRiZTAiLCJyb2xlcyI6WyJSYXBpZENsaWVudEFwaSJdLCJzdWIiOiIyZWVjM2NhMC04MzcwLTQ1ODYtOWY0MC00MWRkNzZjYzRiZTAiLCJ0aWQiOiI5YWVjY2MzOS0wMDk4LTRhN2ItYTQ3ZC1mNDBlMTE2ZTBiOGIiLCJ1dGkiOiJsOFJ4am8xbVNVQ2ZYODVhS3ZLREFBIiwidmVyIjoiMS4wIn0.ct5I7T5iCLseFFE0CPDUp0cVjWxXxI8H-9rYEr0BeQGn5wOcEkxa1SpIqJ_x1an8nLvKXy3ILi57xP-DVBxquu361EWRRgw6xAMnxcmOxWGsy58SDSMKdUBrSWji3QHQECBLSSEbLjmRtcV0WiP7T7MIoCvk9Q8mXrTYFYNvU-d4IclNt8TWlI1FtVv9O3Q5lcpALk2H2-wHshNjDIOjfs_P8F2ezdksRdGeWZw8nnM8_eszr0Qc2pur1u8DdFDDCuPo_lydBnZN5N4U5UnLXiSBKkwLCjV1q5qHEMT0pWAXOiOPLQ1M1DjlWCuLppwu3KBHnGsn-HyVXxMKgcLAhA",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://weu-cdp-ctmp-sbx-apim-dev.azure-api.net/RTSM/api/v1/shipments/asz998-c1",
+					"protocol": "https",
+					"host": [
+						"weu-cdp-ctmp-sbx-apim-dev",
+						"azure-api",
+						"net"
+					],
+					"path": [
+						"RTSM",
+						"api",
+						"v1",
+						"shipments",
+						"asz998-c1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"shashiguru.keluth@dso.org.sg\",\r\n    \"otp\": 234576\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7234/api/EmailOTP/validate",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7234",
+					"path": [
+						"api",
+						"EmailOTP",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

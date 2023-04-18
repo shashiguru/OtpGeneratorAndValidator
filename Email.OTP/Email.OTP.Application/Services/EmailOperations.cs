@@ -5,6 +5,7 @@ using Email.OTP.Application.Models.AppSettings;
 using Email.OTP.Domain.Models;
 using Email.OTP.WebAPI.Models.Response;
 using Microsoft.Extensions.Options;
+using static System.Net.WebRequestMethods;
 
 namespace Email.OTP.Application.Services
 {
@@ -46,7 +47,9 @@ namespace Email.OTP.Application.Services
                     throw new DisabledException("Otp already generated, please try after 1 minute");
                     //otp already generated
                 }
-                userDetailData.Otp = CreateRandomOtp();
+                userDetailData.Otp = UserDetail.Otp;
+                userDetailData.UpdatedDateTime = DateTime.Now.ToSgt();
+                userDetailData.TryCount = 0;
                 await _userDetailRepository.UpdateDetail(userDetailData);
                 await SendEmail(email, userDetailData.Otp);
             }
@@ -81,6 +84,12 @@ namespace Email.OTP.Application.Services
                             await _userDetailRepository.UpdateDetail(userDetail);
                             //Otp invalid
                             return false;
+                        }
+                        else
+                        {
+                            userDetail.UpdatedDateTime = DateTime.Now.ToSgt();
+                            userDetail.TryCount = 0;
+                            await _userDetailRepository.UpdateDetail(userDetail);
                         }
                         return true;
                     }

@@ -40,10 +40,6 @@ namespace Email.OTP.Infrastructure
                     case EntityState.Added:
                         entry.Entity.CreatedDateTime = DateTime.Now.ToSgt();
                         break;
-
-                    case EntityState.Modified:
-                        entry.Entity.UpdatedDateTime = DateTime.Now.ToSgt();
-                        break;
                 }
             }
 
