@@ -89,7 +89,22 @@
      
   3. When user tries to generate the OTP with in minute
      ![image](https://user-images.githubusercontent.com/30490543/232785121-7e7df67f-e040-47a0-b1d9-18034963c56b.png)
+     
+  ### Validate:
+  1. When user eneters invalid OTP.
+    ![image](https://user-images.githubusercontent.com/30490543/232785826-d1b5b362-46df-41d6-afb7-3095c9adddb4.png)
+   
+  2. When user enters invalid email address.
+    ![image](https://user-images.githubusercontent.com/30490543/232787229-e3541aef-8cab-4bec-9ecb-cdf53e109ee3.png)
 
+  3. When entered email address not present in db.
+    ![image](https://user-images.githubusercontent.com/30490543/232787518-dbebe7b9-579c-4fb4-acb0-c84e2ce4d97b.png)
+   
+  4. When enetered OTP timedout(tried after 1 min).
+    ![image](https://user-images.githubusercontent.com/30490543/232790925-96f16d20-fd3a-40d4-a2a0-640378fbc523.png)
+    
+  5. When OTP validated successfully.
+    ![image](https://user-images.githubusercontent.com/30490543/232788471-da97a19c-8d75-4ab2-8925-f16b59459e3c.png)
 
 ## Run unit test:
 1. Build your application and run all the test cases
