@@ -80,8 +80,16 @@
             `Email not found`
   
 ## Test Results:
+  ### Generate:
   1. When user enters the invalid email address.
-    ![image](https://user-images.githubusercontent.com/30490543/232783783-c3a896a3-072f-4ed5-b8bb-abb17bbba59a.png)
+     ![image](https://user-images.githubusercontent.com/30490543/232784786-7c076cd4-7fe3-47c0-9d6a-6ee26cc5f624.png)
+  
+  2. When user enters the valid email address.
+     ![image](https://user-images.githubusercontent.com/30490543/232784558-c2877a86-7746-4260-88c5-3d9e62a024d8.png)
+     
+  3. When user tries to generate the OTP with in minute
+     ![image](https://user-images.githubusercontent.com/30490543/232785121-7e7df67f-e040-47a0-b1d9-18034963c56b.png)
+
 
 ## Run unit test:
 1. Build your application and run all the test cases
