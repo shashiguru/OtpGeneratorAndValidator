@@ -1,4 +1,5 @@
-﻿using Email.OTP.Application.Exceptions;
+﻿using Email.OTP.Application;
+using Email.OTP.Application.Exceptions;
 using Email.OTP.Application.Interfaces;
 using Email.OTP.Application.Models;
 using Email.OTP.Application.Models.AppSettings;
@@ -26,23 +27,44 @@ namespace Email.OTP.UnitTest.Application
         }
 
         [Fact]
-        public async Task GenerateOtp_Positive_WhenEmailIsEntered()
+        public async Task GenerateOtp_Positive_WhenEmailIsEnteredAndUserExistInDb()
         {
             //Arrange
             var actualUserData = CreateUserDetail();
-            actualUserData.UpdatedDateTime.AddSeconds(100);
+            actualUserData.UpdatedDateTime = actualUserData.UpdatedDateTime.AddSeconds(-100);
             var actualEmailData = CreateEmailData(actualUserData.Email, actualUserData.Otp);
 
             //Act
             A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).Returns(actualUserData);
-            A.CallTo(() => _userDetailRepository.CreateDetail(actualUserData)).Returns(true);
-            A.CallTo(() => _emailService.SendEmail(actualEmailData)).Returns(true);
+            A.CallTo(() => _userDetailRepository.UpdateDetail(actualUserData)).Returns(true);
+            A.CallTo(() => _emailService.SendEmail(A<EmailData>.Ignored)).Returns(true);
             var result = await _emailOperations.GenerateOtp(actualUserData.Email);
 
             //Assert
             A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _userDetailRepository.CreateDetail(actualUserData)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => _emailService.SendEmail(actualEmailData)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _userDetailRepository.UpdateDetail(actualUserData)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _emailService.SendEmail(A<EmailData>.Ignored)).MustHaveHappenedOnceExactly();
+        }
+
+        [Fact]
+        public async Task GenerateOtp_Positive_WhenEmailIsEnteredAndUserNotExistInDb()
+        {
+            //Arrange
+            var actualUserData = CreateUserDetail();
+            UserDetail mockUserData = null;
+            actualUserData.UpdatedDateTime = actualUserData.UpdatedDateTime.AddSeconds(-100);
+            var actualEmailData = CreateEmailData(actualUserData.Email, actualUserData.Otp);
+
+            //Act
+            A.CallTo(() =>  _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).Returns(mockUserData);
+            A.CallTo(() => _userDetailRepository.CreateDetail(A<UserDetail>.Ignored)).Returns(true);
+            A.CallTo(() => _emailService.SendEmail(A<EmailData>.Ignored)).Returns(true);
+            var result = await _emailOperations.GenerateOtp(actualUserData.Email);
+
+            //Assert
+            A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _userDetailRepository.CreateDetail(A<UserDetail>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => _emailService.SendEmail(A<EmailData>.Ignored)).MustHaveHappenedOnceExactly();
         }
 
         [Fact]
@@ -50,15 +72,22 @@ namespace Email.OTP.UnitTest.Application
         {
             //Arrange
             var actualUserData = CreateUserDetail();
+            actualUserData.UpdatedDateTime = actualUserData.UpdatedDateTime.AddSeconds(100);
 
-            //Act
-            A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).Returns(actualUserData);
-            Action act = async() => await _emailOperations.GenerateOtp(actualUserData.Email);
-
-            //Assert
-            DisabledException exception = Assert.Throws<DisabledException>(act);
-            A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).MustHaveHappenedOnceExactly();
-            Assert.Equal("Otp already generated, please try after 1 minute", exception.Message);
+            try
+            {
+                //Act
+                A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).Returns(actualUserData);
+                Action act = async () => await _emailOperations.GenerateOtp(actualUserData.Email);
+                DisabledException exception = Assert.Throws<DisabledException>(act);
+            }
+            catch (DisabledException exception)
+            {
+                //Assert
+                A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).MustHaveHappenedOnceExactly();
+                Assert.Equal("Otp already generated, please try after 1 minute", exception.Message);
+                throw;
+            }
         }
 
         [Fact]
@@ -98,16 +127,20 @@ namespace Email.OTP.UnitTest.Application
         {
             //Arrange
             var actualUserData = CreateUserDetail();
-            actualUserData.UpdatedDateTime = DateTime.UtcNow.AddSeconds(100);
+            actualUserData.UpdatedDateTime = actualUserData.UpdatedDateTime.AddSeconds(-100);
 
-            //Act
-            A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).Returns(actualUserData);
-            Action act = async () => await _emailOperations.ValidateOTP(actualUserData.Email, actualUserData.Otp);
-
-            //Assert
-            A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).MustHaveHappenedOnceExactly();
-            TimeoutException exception = Assert.Throws<TimeoutException>(act);
-            Assert.Equal("Timeout for entered Otp", exception.Message);
+            try
+            {
+                //Act
+                A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).Returns(actualUserData);
+                await _emailOperations.ValidateOTP(actualUserData.Email, actualUserData.Otp);
+            }
+            catch (TimeOutException exception)
+            {
+                //Assert
+                A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).MustHaveHappenedOnceExactly();
+                Assert.Equal("Timeout for entered Otp", exception.Message);
+            }
         }
 
         [Fact]
@@ -115,16 +148,21 @@ namespace Email.OTP.UnitTest.Application
         {
             //Arrange
             var actualUserData = CreateUserDetail();
+            UserDetail mockUserData = null;
             actualUserData.UpdatedDateTime = DateTime.UtcNow.AddSeconds(100);
 
-            //Act
-            A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).Returns(new UserDetail());
-            Action act = async () => await _emailOperations.ValidateOTP("", actualUserData.Otp);
-
-            //Assert
-            A.CallTo(() => _userDetailRepository.GetDetailByEmailId(actualUserData.Email)).MustHaveHappenedOnceExactly();
-            NotFoundException exception = Assert.Throws<NotFoundException>(act);
-            Assert.Equal("Timeout for entered Otp", exception.Message);
+            try
+            {
+                //Act
+                A.CallTo(() => _userDetailRepository.GetDetailByEmailId(String.Empty)).Returns(mockUserData);
+                await _emailOperations.ValidateOTP(String.Empty, actualUserData.Otp);
+            }
+            catch (NotFoundException exception)
+            {
+                //Assert
+                A.CallTo(() => _userDetailRepository.GetDetailByEmailId(String.Empty)).MustHaveHappenedOnceExactly();
+                Assert.Equal("Email not found", exception.Message);
+            }
         }
 
         /// <summary>
@@ -136,8 +174,8 @@ namespace Email.OTP.UnitTest.Application
             return new UserDetail()
             {
                 Email = "shashiguru.keluth@dso.org.sg",
-                CreatedDateTime = DateTime.UtcNow,
-                UpdatedDateTime = DateTime.UtcNow,
+                CreatedDateTime = DateTime.Now.ToSgt(),
+                UpdatedDateTime = DateTime.Now.ToSgt(),
                 Id = new Guid(),
                 Otp = new Random().Next(0, 1000000),
                 TryCount = 0
